@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand ml-3" href="#">Money Transfer System</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    Transfer funding's
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <form class="flex box-128" action="/logout" method="post">
+                    <button class="btn btn-secondary ">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+    </div>
+</nav>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Transfer funding's</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <form method="POST">
+                    <div class="ml-2 mt-2 mr-2 mb-2">
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-6">
+                                <label for="amount">Amount</label>
+                                <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount"
+                                       required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="currency">Currency</label>
+                                <select id="currency" name="currency" class="form-control" required>
+                                    <option th:each="currency : ${currencies}" th:value="${currency}"
+                                            th:text="${currency}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="sender_firstname">Sender firstname</label>
+                                <input type="text" class="form-control" id="sender_firstname" name="senderFirstname"
+                                       placeholder="Sender firstname" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="sender_surname">Sender surname</label>
+                                <input type="text" class="form-control" id="sender_surname" name="senderSurname"
+                                       placeholder="Sender surname" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="sender_patronymic">Sender patronymic</label>
+                                <input type="text" class="form-control" id="sender_patronymic" name="senderPatronymic"
+                                       placeholder="Sender patronymic">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="sender_phone">Sender phone number</label>
+                                <input type="number" class="form-control" id="sender_phone" name="senderPhone"
+                                       placeholder="Sender phone number" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="recipient_firstname">Recipient firstname</label>
+                                <input type="text" class="form-control" id="recipient_firstname"
+                                       name="recipientFirstname" placeholder="Recipient first name" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="recipient_surname">Recipient surname</label>
+                                <input type="text" class="form-control" id="recipient_surname" name="recipientSurname"
+                                       placeholder="Recipient surname" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="recipient_patronymic">Recipient patronymic</label>
+                                <input type="text" class="form-control" id="recipient_patronymic"
+                                       name="recipientPatronymic" placeholder="Recipient patronymic">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="recipient_phone">Recipient phone number</label>
+                                <input type="number" class="form-control" id="recipient_phone" name="recipientPhone"
+                                       placeholder="Recipient phone number" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control" id="description" name="description"
+                                       placeholder="Description" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="cashbox">Cashbox</label>
+                                <select id="cashbox" name="cashboxId" class="form-control" required>
+                                    <option th:each="cashbox : ${cashboxes}" th:value="${cashbox.id}"
+                                            th:text="${cashbox.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" onclick="transfer(this.form)" class="btn btn-primary">Transfer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container w-75 mt-3">
+    <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th class="th-sm">id</th>
+            <th class="th-sm">amount</th>
+            <th class="th-sm">currency</th>
+            <th class="th-sm">sender</th>
+            <th class="th-sm">sender phone</th>
+            <th class="th-sm">recipient</th>
+            <th class="th-sm">recipient phone</th>
+            <th class="th-sm">description</th>
+            <th class="th-sm">created</th>
+            <th class="th-sm">code</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction: ${transactions}">
+            <td th:text="${transaction.id}"/>
+            <td th:text="${transaction.amount}"/>
+            <td th:text="${transaction.currency}"/>
+            <td th:text="${transaction.sender}"/>
+            <td th:text="${transaction.senderPhone}"/>
+            <td th:text="${transaction.recipient}"/>
+            <td th:text="${transaction.recipientPhone}"/>
+            <td th:text="${transaction.description}"/>
+            <td th:text="${#dates.format(transaction.created_at, 'dd-MM-yyyy HH:mm')}"/>
+            <td th:text="${transaction.code != null} ? ${transaction.code} : '-'"/>
+            <td th:if="${transaction.code != null} and ${transaction.status != T(com.example.moneytransfersystem.enums.TransactionStatus).ISSUED}">
+                <form class="flex box-128" th:attr="onclick=|issue('${transaction.id}')|">
+                    <button class="btn btn-secondary">Issue</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>id</th>
+            <th>amount</th>
+            <th>currency</th>
+            <th>sender</th>
+            <th>sender phone</th>
+            <th>recipient</th>
+            <th>recipient phone</th>
+            <th>description</th>
+            <th>created</th>
+            <th>code</th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script>
+    async function transfer(form) {
+        let data = new FormData(form);
+        let jsonData = toJson(data)
+        let response = await fetch("/api/transactions", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonData
+        });
+
+        console.log("response: ", response)
+
+        if (response.ok) {
+            let transactionCode = await response.json();
+            showTransactionCode(transactionCode.code);
+        } else {
+            alert("Sorry, Server error");
+        }
+    }
+
+    async function issue(transactionId) {
+        let response = await fetch("/api/transactions/complete/" + transactionId, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            showSuccessModal();
+        } else {
+            alert("Sorry, Server error");
+        }
+    }
+
+    function showTransactionCode(transactionCode) {
+        let modalBody = document.getElementById("modal-body")
+        modalBody.innerHTML = '';
+        let content = createItemElem(transactionCode);
+        modalBody.appendChild(content);
+    }
+
+    function createItemElem(transactionCode) {
+        let content = '<span> Transaction code: ' + transactionCode + '</span>';
+        let element = document.createElement('div');
+        element.innerHTML = content;
+        return element;
+    }
+
+    function toJson(formData) {
+        const object = {};
+        formData.forEach(function (value, key) {
+            object[key] = value;
+        });
+        return JSON.stringify(object);
+    }
+
+    function showSuccessModal() {
+        let modalBody = document.getElementById("modal-body")
+        modalBody.innerHTML = '';
+        let content = createMessage();
+        modalBody.appendChild(content);
+        $('#modal-body').showModal()
+    }
+
+    function createMessage() {
+        let content = '<span> Transfer completed! </span>';
+        let element = document.createElement('div');
+        element.innerHTML = content;
+        return element;
+    }
+</script>
+</body>
+</html>
