@@ -7,7 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Data
 @EntityListeners(AuditingEntityListener.class)
@@ -16,10 +16,10 @@ public abstract class AuditableEntity {
 
     @CreatedDate
     @Column(nullable = false)
-    protected Instant createdAt = Instant.now();
+    protected LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
     @Column(nullable = false)
-    protected Instant updatedAt = Instant.now();
+    protected LocalDateTime updatedAt = LocalDateTime.now();
 
 }

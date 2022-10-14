@@ -2,7 +2,6 @@ package com.example.moneytransfersystem.domain;
 
 import com.example.moneytransfersystem.enums.Currency;
 import com.example.moneytransfersystem.enums.TransactionStatus;
-import com.example.moneytransfersystem.enums.TransactionType;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;

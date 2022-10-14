@@ -1,7 +1,9 @@
 package com.example.moneytransfersystem.controller;
 
 import com.example.moneytransfersystem.annotation.CurrentCashbox;
+import com.example.moneytransfersystem.controller.dto.BalanceDto;
 import com.example.moneytransfersystem.controller.dto.CashboxDto;
+import com.example.moneytransfersystem.controller.dto.SearchTransactionRequest;
 import com.example.moneytransfersystem.controller.dto.TransactionDto;
 import com.example.moneytransfersystem.domain.Cashbox;
 import com.example.moneytransfersystem.domain.Transaction;
@@ -34,14 +36,12 @@ public class CabinetController {
     }
 
     @GetMapping
-    public String cabinet(@CurrentCashbox Cashbox cashbox, Model model) {
-        List<Transaction> transactions = transactionService.getAll();
+    public String cabinet(@CurrentCashbox Cashbox cashbox, SearchTransactionRequest request, Model model) {
+        List<Transaction> transactions = transactionService.getAll(request);
         List<TransactionDto> transactionDtos = transactions
                 .stream()
                 .map(t -> new TransactionDto(t, Objects.equals(t.getTo(), cashbox) ? t.getTransactionCode().getCode() : null))
                 .collect(toList());
-
-        List<Currency> currencies = Arrays.asList(Currency.values());
 
         List<Cashbox> cashboxes = cashboxService.getAll()
                 .stream()
@@ -49,9 +49,14 @@ public class CabinetController {
                 .collect(toList());
         List<CashboxDto> cashboxDtos = cashboxes.stream().map(CashboxDto::new).collect(toList());
 
+        List<BalanceDto> balances = Arrays
+                .stream(Currency.values())
+                .map(c -> new BalanceDto(c, transactionService.getBalance(cashbox, c)))
+                .collect(toList());
+
         model.addAttribute("transactions", transactionDtos);
-        model.addAttribute("currencies", currencies);
         model.addAttribute("cashboxes", cashboxDtos);
+        model.addAttribute("balances", balances);
 
         return "cabinet";
     }

@@ -8,21 +8,32 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TransactionDto {
+
     Long id;
+
     BigDecimal amount;
+
     Currency currency;
+
     String sender;
+
     String senderPhone;
+
     String recipient;
+
     String recipientPhone;
+
     String description;
+
     TransactionStatus status;
-    Instant created_at;
+
+    LocalDateTime created_at;
+
     String code;
 
     public TransactionDto(Transaction transaction, String transactionCode) {
