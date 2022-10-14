@@ -11,33 +11,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
 public class DefaultCashboxService implements CashboxService {
 
     private final CashboxRepository repository;
-    private final TransactionService transactionService;
+
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DefaultCashboxService(
-            CashboxRepository repository,
-            TransactionService transactionService,
-            PasswordEncoder passwordEncoder
-    ) {
+    public DefaultCashboxService(CashboxRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
-        this.transactionService = transactionService;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public BigDecimal getBalance(Cashbox cashbox) {
-        // TODO
-        // return transactionService.calculateBalance()
-        return null;
     }
 
     @Override

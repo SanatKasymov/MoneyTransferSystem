@@ -60,17 +60,17 @@
                 <h5 class="modal-title">Transfer funding's</h5>
             </div>
             <div class="modal-body" id="modal-body">
-                <form method="POST">
+                <form method="POST" onsubmit="transfer(event, this)">
                     <div class="ml-2 mt-2 mr-2 mb-2">
                         <div class="form-row mb-3">
                             <div class="form-group col-md-6">
                                 <label for="amount">Amount</label>
                                 <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount"
-                                       required>
+                                       required />
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="currency">Currency</label>
-                                <select id="currency" name="currency" class="form-control" required>
+                                <select id="currency" name="currency" class="form-control" required />
                                     <option th:each="currency : ${T(com.example.moneytransfersystem.enums.Currency).values()}"
                                             th:value="${currency}"
                                             th:text="${currency}"></option>
@@ -79,12 +79,12 @@
                             <div class="form-group col-md-6">
                                 <label for="sender_firstname">Sender firstname</label>
                                 <input type="text" class="form-control" id="sender_firstname" name="senderFirstname"
-                                       placeholder="Sender firstname" required>
+                                       placeholder="Sender firstname" required />
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="sender_surname">Sender surname</label>
                                 <input type="text" class="form-control" id="sender_surname" name="senderSurname"
-                                       placeholder="Sender surname" required>
+                                       placeholder="Sender surname" required />
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="sender_patronymic">Sender patronymic</label>
@@ -94,17 +94,17 @@
                             <div class="form-group col-md-6">
                                 <label for="sender_phone">Sender phone number</label>
                                 <input type="number" class="form-control" id="sender_phone" name="senderPhone"
-                                       placeholder="Sender phone number" required>
+                                       placeholder="Sender phone number" required />
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="recipient_firstname">Recipient firstname</label>
                                 <input type="text" class="form-control" id="recipient_firstname"
-                                       name="recipientFirstname" placeholder="Recipient first name" required>
+                                       name="recipientFirstname" placeholder="Recipient first name" required />
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="recipient_surname">Recipient surname</label>
                                 <input type="text" class="form-control" id="recipient_surname" name="recipientSurname"
-                                       placeholder="Recipient surname" required>
+                                       placeholder="Recipient surname" required />
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="recipient_patronymic">Recipient patronymic</label>
@@ -114,22 +114,22 @@
                             <div class="form-group col-md-6">
                                 <label for="recipient_phone">Recipient phone number</label>
                                 <input type="number" class="form-control" id="recipient_phone" name="recipientPhone"
-                                       placeholder="Recipient phone number" required>
+                                       placeholder="Recipient phone number" required />
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="description">Description</label>
                                 <input type="text" class="form-control" id="description" name="description"
-                                       placeholder="Description" required>
+                                       placeholder="Description" required />
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="cashbox">Cashbox</label>
-                                <select id="cashbox" name="cashboxId" class="form-control" required>
+                                <select id="cashbox" name="cashboxId" class="form-control" required />
                                     <option th:each="cashbox : ${cashboxes}" th:value="${cashbox.id}"
                                             th:text="${cashbox.name}"></option>
                                 </select>
                             </div>
                         </div>
-                        <button type="button" onclick="transfer(this.form)" class="btn btn-primary">Transfer</button>
+                        <button type="submit" class="btn btn-primary">Transfer</button>
                     </div>
                 </form>
             </div>
@@ -151,23 +151,22 @@
                                 <label for="search-from">From date</label>
                                 <input type="datetime-local" class="form-control" id="search-from" name="from"
                                        placeholder="From date"
-                                       value="from" required>
+                                       value="from">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="search-from">To date</label>
                                 <input type="datetime-local" class="form-control" id="search-to" name="to"
                                        placeholder="To date"
-                                       value="from" required>
+                                       value="from">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="amount">Amount</label>
                                 <input type="number" class="form-control" id="search-amount" name="amount"
-                                       placeholder="Amount"
-                                       required>
+                                       placeholder="Amount">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="currency">Currency</label>
-                                <select id="search-currency" name="currency" class="form-control" required>
+                                <select id="search-currency" name="currency" class="form-control">
                                     <option value=""></option>
                                     <option th:each="currency : ${T(com.example.moneytransfersystem.enums.Currency).values()}"
                                             th:value="${currency}"
@@ -178,12 +177,12 @@
                                 <label for="sender_firstname">Sender firstname</label>
                                 <input type="text" class="form-control" id="search-sender_firstname"
                                        name="senderFirstname"
-                                       placeholder="Sender firstname" required>
+                                       placeholder="Sender firstname">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="sender_surname">Sender surname</label>
                                 <input type="text" class="form-control" id="search-sender_surname" name="senderSurname"
-                                       placeholder="Sender surname" required>
+                                       placeholder="Sender surname">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="sender_patronymic">Sender patronymic</label>
@@ -194,18 +193,18 @@
                             <div class="form-group col-md-6">
                                 <label for="sender_phone">Sender phone number</label>
                                 <input type="number" class="form-control" id="search-sender_phone" name="senderPhone"
-                                       placeholder="Sender phone number" required>
+                                       placeholder="Sender phone number">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="recipient_firstname">Recipient firstname</label>
                                 <input type="text" class="form-control" id="search-recipient_firstname"
-                                       name="recipientFirstname" placeholder="Recipient first name" required>
+                                       name="recipientFirstname" placeholder="Recipient first name">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="recipient_surname">Recipient surname</label>
                                 <input type="text" class="form-control" id="search-recipient_surname"
                                        name="recipientSurname"
-                                       placeholder="Recipient surname" required>
+                                       placeholder="Recipient surname">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="recipient_patronymic">Recipient patronymic</label>
@@ -216,16 +215,16 @@
                                 <label for="recipient_phone">Recipient phone number</label>
                                 <input type="number" class="form-control" id="search-recipient_phone"
                                        name="recipientPhone"
-                                       placeholder="Recipient phone number" required>
+                                       placeholder="Recipient phone number">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="description">Description</label>
                                 <input type="text" class="form-control" id="search-description" name="description"
-                                       placeholder="Description" required>
+                                       placeholder="Description">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="cashbox">Status</label>
-                                <select id="search-status" name="status" class="form-control" required>
+                                <select id="search-status" name="status" class="form-control">
                                     <option value=""></option>
                                     <option th:each="status : ${T(com.example.moneytransfersystem.enums.TransactionStatus).values()}"
                                             th:value="${status}"
@@ -234,7 +233,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="cashbox">Cashbox</label>
-                                <select id="search-cashbox" name="cashboxId" class="form-control" required>
+                                <select id="search-cashbox" name="cashboxId" class="form-control">
                                     <option value=""></option>
                                     <option th:each="cashbox : ${cashboxes}" th:value="${cashbox.id}"
                                             th:text="${cashbox.name}"></option>
@@ -437,7 +436,9 @@
         }
     }
 
-    async function transfer(form) {
+    async function transfer(event, form) {
+        event.preventDefault();
+
         let data = new FormData(form);
         let jsonData = toJson(data)
         let response = await fetch("/api/transactions", {
