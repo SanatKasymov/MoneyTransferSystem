@@ -14,7 +14,8 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "cashboxes")
+@Table(name = "cashboxes",
+        indexes = @Index(name = "cashboxes_name_idx", columnList = "name"))
 public class Cashbox implements UserDetails {
 
     @Id

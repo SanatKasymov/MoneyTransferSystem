@@ -15,7 +15,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "transactions")
+@Table(name = "transactions", indexes = {
+        @Index(name="transactions_from_currency_idx", columnList = "cashbox_from_id, currency"),
+        @Index(name="transactions_to_status_currency_idx", columnList = "cashbox_to_id, status, currency")
+})
 public class Transaction extends AuditableEntity {
 
     @Id
