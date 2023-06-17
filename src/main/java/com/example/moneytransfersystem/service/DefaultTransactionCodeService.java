@@ -20,7 +20,6 @@ public class DefaultTransactionCodeService implements TransactionCodeService {
         this.repository = repository;
     }
 
-
     @Override
     @Transactional
     public TransactionCode create(Transaction transaction) {
